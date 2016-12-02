@@ -61,6 +61,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def login
+    respond_to do |format|
+      format.json { render json: User.find_by(login: user_params[:login], password: user_params[:password]) }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -69,6 +75,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name)
+      params.require(:user).permit(:login, :password)
     end
 end
